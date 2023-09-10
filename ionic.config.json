@@ -1,0 +1,7 @@
+{
+  "name": "treinoApi",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
