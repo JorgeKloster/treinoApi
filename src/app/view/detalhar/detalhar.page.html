@@ -30,13 +30,13 @@
   </ion-item>
 
 
-  <ion-list *ngFor="let exercicio of listaDeExercicios">
-    <ion-item *ngIf="exercicio.grupoMusc == this.grupoMusc">
-      <ion-label>{{exercicio.exercicio}}</ion-label>
-      <ion-label>{{exercicio.series}} series</ion-label>
-      <ion-label>{{exercicio.repeticoes}} Repetições</ion-label>
+  <ion-list *ngFor="let exercicios of this.listaDeExercicios">
+    <ion-item *ngIf="exercicios.grupoMusc == this.grupoMusc">
+      <ion-label>{{exercicios.exercicio}}</ion-label>
+      <ion-label>{{exercicios.series}} series</ion-label>
+      <ion-label>{{exercicios.repeticoes}} Repetições</ion-label>
     </ion-item>
   </ion-list>
 
-  <ion-button expand="full" color="danger" (click)="editarExcluir()">Editar/Excluir</ion-button>
+  <ion-button expand="full" color="danger" (click)="editarExcluir(treino)">Editar/Excluir</ion-button>
 </ion-content>

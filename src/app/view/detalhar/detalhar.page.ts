@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Exercicio } from 'src/app/model/entities/Exercicio';
 import { Treino } from 'src/app/model/entities/Treino';
-import { ExerciciosService } from 'src/app/model/services/exercicios.service';
-import { TreinoService } from 'src/app/model/services/treino.service';
+import { FirebaseService } from 'src/app/model/services/firebase.service';
+
 
 @Component({
   selector: 'app-detalhar',
@@ -11,7 +11,6 @@ import { TreinoService } from 'src/app/model/services/treino.service';
   styleUrls: ['./detalhar.page.scss'],
 })
 export class DetalharPage implements OnInit {
-  indice! : number;
   grupoMusc! : string;
   diaSemana! : string;
   horario! : string;
@@ -25,28 +24,35 @@ export class DetalharPage implements OnInit {
   public listaDeExercicios : Exercicio[] = []
 
   constructor(
-    private actRoute : ActivatedRoute,
-    private treinoService : TreinoService,
     private router : Router,
-    private exerciciosService : ExerciciosService
-  ) { }
+    private firebase : FirebaseService
+  ) { 
+    this.firebase.mostrarTodosExercicios()
+    .subscribe(res => {
+      this.listaDeExercicios = res.map(exercicio => {
+        return{
+          id: exercicio.payload.doc.id,
+          ...exercicio.payload.doc.data() as any
+        }as Exercicio
+      }
+      )
+    })
+  }
 
   ngOnInit() {
-    this,this.actRoute.params.subscribe((parametros) => {
-      if(parametros["indice"]){
-        this.indice = parametros["indice"];
-      }
-    })
-    this.treino = this.treinoService.mostrarPorIndice(this.indice);
+    this.treino = history.state.treino;
     this.grupoMusc = this.treino.grupoMusc;
     this.diaSemana = this.treino.diaSemana;
     this.horario = this.treino.horario;
     this.duracao = this.treino.duracao;
-    this.listaDeExercicios = this.exerciciosService.mostrarTodos();
+    this.exercicio = this.exercicios.exercicio;
+    this.exercicios = history.state.exercicios;
+    this.series = this.exercicios.series;
+    this.repeticoes = this.exercicios.repeticoes;
   }
 
-  editarExcluir(){
-    this.router.navigate(["/editar", this.indice]);
+  editarExcluir(treino : Treino){
+    this.router.navigateByUrl("/editar", {state : {treino : treino}});
   }
   
 }

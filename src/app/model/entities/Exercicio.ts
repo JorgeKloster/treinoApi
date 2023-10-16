@@ -1,4 +1,5 @@
 export class Exercicio{
+    private _id!: string;
     private _grupoMusc: string;
     private _exercicio: string;
     private _series!: number;
@@ -7,6 +8,14 @@ export class Exercicio{
     constructor(grupoMusc: string, exercicio: string) {
         this._grupoMusc = grupoMusc;
         this._exercicio = exercicio;
+    }
+
+    public get id() : string{
+        return this._id;
+    }
+
+    public set id(id : string){
+        this._id = id;
     }
 
     public get grupoMusc() : string{

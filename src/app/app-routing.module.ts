@@ -16,11 +16,11 @@ const routes: Routes = [
     loadChildren: () => import('./view/incluir/incluir.module').then( m => m.IncluirPageModule)
   },
   {
-    path: 'detalhar/:indice',
+    path: 'detalhar',
     loadChildren: () => import('./view/detalhar/detalhar.module').then( m => m.DetalharPageModule)
   },
   {
-    path: 'editar/:indice',
+    path: 'editar',
     loadChildren: () => import('./view/editar/editar.module').then( m => m.EditarPageModule)
   },
 ];

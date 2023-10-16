@@ -8,7 +8,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-list *ngFor="let treino of this.listaDeTreinos, let i = index">
-    <ion-item (click)="detalhar(i)">
+    <ion-item (click)="detalhar(treino)">
       <ion-label>{{treino.diaSemana}}</ion-label>
       <ion-label>{{treino.grupoMusc}}</ion-label>
     </ion-item>

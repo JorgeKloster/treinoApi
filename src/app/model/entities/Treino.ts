@@ -1,4 +1,5 @@
 export class Treino{
+    private _id!: string;
     private _grupoMusc: string;
     private _diaSemana: string;
     private _horario!: string;
@@ -7,6 +8,14 @@ export class Treino{
     constructor(grupoMusc: string, diaSemana: string) {
         this._grupoMusc = grupoMusc;
         this._diaSemana = diaSemana;
+    }
+
+    public get id() : string{
+        return this._id;
+    }
+
+    public set id(id : string){
+        this._id = id;
     }
 
     public get grupoMusc() : string{
