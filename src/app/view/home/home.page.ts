@@ -10,7 +10,7 @@ import { FirebaseService } from 'src/app/model/services/firebase.service';
 })
 export class HomePage {
 
-  public listaDeTreinos : Treino[] = []
+  public listaDeTreinos : Treino[] = [];
 
   constructor(
     private router : Router,

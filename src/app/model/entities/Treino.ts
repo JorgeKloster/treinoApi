@@ -4,6 +4,7 @@ export class Treino{
     private _diaSemana: string;
     private _horario!: string;
     private _duracao! : string;
+    private _downloadURL : any;
 
     constructor(grupoMusc: string, diaSemana: string) {
         this._grupoMusc = grupoMusc;
@@ -22,7 +23,7 @@ export class Treino{
         return this._grupoMusc;
     }
 
-    public set muscGroup(grupoMusc : string){
+    public set grupoMusc(grupoMusc : string){
         this._grupoMusc = grupoMusc;
     }
 
@@ -48,6 +49,14 @@ export class Treino{
 
     public set duracao(duracao : string){
         this._duracao = duracao;
+    }
+
+    public get downloadURL() : any{
+        return this._downloadURL;
+    }
+
+    public set downloadURL(value : any){
+        this._downloadURL = value;
     }
 
 }

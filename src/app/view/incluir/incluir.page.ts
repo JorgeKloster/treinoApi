@@ -15,6 +15,7 @@ export class IncluirPage implements OnInit {
   public diaSemana! : string;
   public horario! : string;
   public duracao! : string;
+  public imagem! : any;
 
   constructor(private router : Router,
     private firebase : FirebaseService,
@@ -23,17 +24,32 @@ export class IncluirPage implements OnInit {
   ngOnInit() {
   }
 
+  uploadFile(imagem : any){
+    this.imagem = imagem.files;
+  }
+
   incluir() {
-    let novo : Treino = new Treino(this.grupoMusc, this.diaSemana);
-    novo.horario = this.horario;
-    novo.duracao = this.duracao;
-    this.firebase.incluir(novo)
-    .then(()=> this.router.navigate(["/home"]))
-    .catch((error) => {
-      console.log(error);
+    if(this.grupoMusc && this.diaSemana){
+      let novo : Treino = new Treino(this.grupoMusc, this.diaSemana);
+      novo.horario = this.horario;
+      novo.duracao = this.duracao;
+      if(this.imagem){
+        this.firebase.inserirFoto(this.imagem, novo)
+        ?.then(()=> {
+          this.router.navigate(["/home"]);
+        })
+      }else{
+        this.firebase.incluir(novo)
+        .then(()=> this.router.navigate(["/home"]))
+        .catch((error) => {
+          console.log(error);
+          this.presentAlert("Erro", "Erro ao salvar treino!");
+        })
+        this.router.navigate(["/home"]);
+      }
+    }else{
       this.presentAlert("erro", "Grupo Muscular e Dia da Semana são campos obrigatórios");
-    })
-    this.router.navigate(["/home"]);
+    }
   }
 
   async presentAlert(subHeader: string, message: string) {

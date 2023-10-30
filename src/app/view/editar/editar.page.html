@@ -58,6 +58,12 @@
     </ion-label>
   </ion-item>
 
+  <ion-item>
+    <ion-button size="default" color="success" shape="round" >
+      <input type="file" (change)="uploadFile($event.target)" />
+    </ion-button>
+  </ion-item>
+
   <ion-button expand="full" (click)="editar()">Salvar</ion-button>
   <ion-button expand="full" (click)="excluir()" color="danger">Excluir</ion-button>
 </ion-content>

@@ -15,6 +15,7 @@ export class EditarPage implements OnInit {
   horario! : string;
   duracao! : string;
   treino! : Treino;
+  imagem! : any;
 
   constructor(
     private alertController : AlertController,
@@ -28,18 +29,35 @@ export class EditarPage implements OnInit {
     this.horario = this.treino.horario;
     this.duracao = this.treino.duracao;
     }
+
+  uploadFile(imagem : any){
+    this.imagem = imagem.files;
+  }
  
   editar(){
-    let novo : Treino = new Treino(this.grupoMusc, this.diaSemana);
-    novo.horario = this.horario;
-    novo.duracao = this.duracao;
-    this.firebase.atualizar(novo, this.treino.id)
-    .then(() => {this.router.navigate(["/home"]);})
-    .catch((error) => {
-      console.log(error);
-      this.presentAlert("Erro", "Grupo Muscular e Dia da Semana são campos obrigatórios!")
-    })
-    this.router.navigate(["/home"]);
+    if(this.grupoMusc && this.diaSemana){
+      let novo : Treino = new Treino(this.grupoMusc, this.diaSemana);
+      novo.horario = this.horario;
+      novo.duracao = this.duracao;
+      novo.id = this.treino.id;
+      if(this.imagem){
+        this.firebase.inserirFoto(this.imagem, novo)
+        ?.then(()=> {
+          this.router.navigate(["/home"]);
+        })
+      }else{
+        novo.downloadURL = this.treino.downloadURL;
+        this.firebase.atualizar(novo, this.treino.id)
+        .then(()=> this.router.navigate(["/home"]))
+        .catch((error) => {
+          console.log(error);
+          this.presentAlert("Erro", "Erro ao salvar treino!");
+        })
+        this.router.navigate(["/home"]);
+      }
+    }else{
+      this.presentAlert("erro", "Grupo Muscular e Dia da Semana são campos obrigatórios");
+    }
   }
 
   excluir(){

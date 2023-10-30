@@ -20,6 +20,7 @@ export class DetalharPage implements OnInit {
   exercicio! : string;
   series! : number;
   repeticoes! : number;
+  downloadURL! : any;
 
   public listaDeExercicios : Exercicio[] = []
 
@@ -49,6 +50,7 @@ export class DetalharPage implements OnInit {
     this.exercicios = history.state.exercicios;
     this.series = this.exercicios.series;
     this.repeticoes = this.exercicios.repeticoes;
+    this.downloadURL = this.treino.downloadURL;
   }
 
   editarExcluir(treino : Treino){
